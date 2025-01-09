@@ -27,3 +27,9 @@ KELAS : 2B TRPL
 
 Tampilan Awal
 hasil : ![alt text](image.png)
+
+Tampilan Sign Up
+hasil : ![alt text](image-1.png)
+
+Tampilan Sign In
+hasil : ![alt text](image-2.png)

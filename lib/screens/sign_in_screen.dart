@@ -45,7 +45,7 @@ class _SignInScreenState extends State<SignInScreen> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => HomeScreen(),
+            builder: (context) => HomeScreen(userName: email.split('@')[0]), // Pass the user name to HomeScreen
           ),
         );
       }
@@ -108,14 +108,14 @@ class _SignInScreenState extends State<SignInScreen> {
                   icon: Image.asset('assets/google_logo.png'),
                   iconSize: 24,
                   onPressed: () {
-                    
+                    // Add Google sign-in logic here
                   },
                 ),
                 IconButton(
                   icon: Image.asset('assets/facebook_logo.png'),
-                  iconSize: 24, 
+                  iconSize: 24,
                   onPressed: () {
-                    
+                    // Add Facebook sign-in logic here
                   },
                 ),
               ],
