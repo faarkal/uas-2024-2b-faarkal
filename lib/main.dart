@@ -18,13 +18,30 @@ class MyApp extends StatelessWidget {
       title: 'Your App Title',
       home: SplashScreen(),
       debugShowCheckedModeBanner: false, // Remove the debug banner
-      routes: {
-        '/signin': (context) => SignInScreen(),
-        '/signup': (context) => SignUpScreen(),
-        '/home': (context) => HomeScreen(),
-        '/messages': (context) => MessagesScreen(),
-        '/profile': (context) => ProfileScreen(),
-        '/notifications': (context) => NotificationScreen(),
+      onGenerateRoute: (settings) {
+        if (settings.name == '/home') {
+          final args = settings.arguments as String;
+          return MaterialPageRoute(
+            builder: (context) {
+              return HomeScreen(userName: args);
+            },
+          );
+        }
+        // Define other routes here
+        switch (settings.name) {
+          case '/signin':
+            return MaterialPageRoute(builder: (context) => SignInScreen());
+          case '/signup':
+            return MaterialPageRoute(builder: (context) => SignUpScreen());
+          case '/messages':
+            return MaterialPageRoute(builder: (context) => MessagesScreen());
+          case '/profile':
+            return MaterialPageRoute(builder: (context) => ProfileScreen());
+          case '/notifications':
+            return MaterialPageRoute(builder: (context) => NotificationScreen());
+          default:
+            return null;
+        }
       },
     );
   }
