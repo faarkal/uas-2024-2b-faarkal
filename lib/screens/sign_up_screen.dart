@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'sign_in_screen.dart'; // Import untuk navigasi kembali ke Sign In
-import 'home_screen.dart'; // Import untuk navigasi ke Home setelah Sign Up
+import 'sign_in_screen.dart';
+
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -8,113 +8,155 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  final _formKey = GlobalKey<FormState>(); // Key untuk validasi form
-  final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
+  final TextEditingController namaController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
 
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-    _confirmPasswordController.dispose();
-    super.dispose();
+  String namaError = '';
+  String emailError = '';
+  String passwordError = '';
+  String confirmPasswordError = '';
+
+  // Fungsi untuk validasi email
+  bool _isValidEmail(String email) {
+    String pattern = r'^[^@]+@[^@]+\.[^@]+';
+    RegExp regex = RegExp(pattern);
+    return regex.hasMatch(email);
+  }
+
+  // Fungsi untuk validasi dan navigasi ke halaman login
+  void _register() {
+    String namaLengkap = namaController.text;
+    String email = emailController.text;
+    String password = passwordController.text;
+    String confirmPassword = confirmPasswordController.text;
+
+    setState(() {
+      namaError = '';
+      emailError = '';
+      passwordError = '';
+      confirmPasswordError = '';
+
+      // Cek apakah semua kolom terisi
+      if (namaLengkap.isEmpty) {
+        namaError = 'Nama lengkap tidak boleh kosong';
+      }
+
+      if (email.isEmpty) {
+        emailError = 'Email tidak boleh kosong';
+      } else if (!_isValidEmail(email)) {
+        emailError = 'Email tidak valid';
+      }
+
+      // Validasi panjang password minimal 6 karakter
+      if (password.isEmpty) {
+        passwordError = 'Password tidak boleh kosong';
+      } else if (password.length < 6) {
+        passwordError = 'Password harus minimal 6 karakter';
+      }
+
+      // Validasi konfirmasi password
+      if (confirmPassword.isEmpty) {
+        confirmPasswordError = 'Konfirmasi password tidak boleh kosong';
+      } else if (password != confirmPassword) {
+        confirmPasswordError = 'Konfirmasi password tidak sesuai';
+      }
+
+      if (namaError.isEmpty && emailError.isEmpty && passwordError.isEmpty && confirmPasswordError.isEmpty) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SignInScreen(),
+          ),
+        );
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Sign Up')),
+      appBar: AppBar(
+        title: Text('Sign Up'),
+        backgroundColor: Colors.blueAccent,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: ListView( // Menggunakan ListView agar bisa scroll jika konten melebihi layar
-            children: <Widget>[
-              TextFormField(
-                controller: _nameController,
-                decoration: InputDecoration(labelText: 'Full Name'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your name';
-                  }
-                  return null;
-                },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextField(
+              controller: namaController,
+              decoration: InputDecoration(
+                labelText: 'Nama Lengkap',
+                border: OutlineInputBorder(),
+                errorText: namaError.isNotEmpty ? namaError : null,
               ),
-              TextFormField(
-                controller: _emailController,
-                decoration: InputDecoration(labelText: 'Email'),
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
-                  }
-                  if (!value.contains('@')) {
-                    return 'Please enter a valid email';
-                  }
-                  return null;
-                },
+            ),
+            SizedBox(height: 20),
+            TextField(
+              controller: emailController,
+              decoration: InputDecoration(
+                labelText: 'Email',
+                border: OutlineInputBorder(),
+                errorText: emailError.isNotEmpty ? emailError : null,
               ),
-              TextFormField(
-                controller: _passwordController,
-                decoration: InputDecoration(labelText: 'Password'),
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
-                  }
-                  if (value.length < 6) {
-                    return 'Password must be at least 6 characters';
-                  }
-                  return null;
-                },
+            ),
+            SizedBox(height: 20),
+            TextField(
+              controller: passwordController,
+              decoration: InputDecoration(
+                labelText: 'Password',
+                border: OutlineInputBorder(),
+                errorText: passwordError.isNotEmpty ? passwordError : null,
               ),
-              TextFormField(
-                controller: _confirmPasswordController,
-                decoration: InputDecoration(labelText: 'Confirm Password'),
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please confirm your password';
-                  }
-                  if (value != _passwordController.text) {
-                    return 'Passwords do not match';
-                  }
-                  return null;
-                },
+              obscureText: true,
+            ),
+            SizedBox(height: 20),
+            TextField(
+              controller: confirmPasswordController,
+              decoration: InputDecoration(
+                labelText: 'Konfirmasi Password',
+                border: OutlineInputBorder(),
+                errorText: confirmPasswordError.isNotEmpty ? confirmPasswordError : null,
               ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    // Proses Sign Up (misalnya, kirim data ke backend)
-                    // Jika berhasil, navigasi ke Home
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()),
-                    );
-                  }
-                },
-                child: Text('Sign Up'),
-              ),
-              SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Already have an account?"),
-                  TextButton(onPressed: (){
-                     Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => SignInScreen()),
-                    );
-                  }, child: Text('Sign In'))
-                ],
-              ),
-              // ... (Tombol Sign Up dengan Google/Facebook)
-            ],
-          ),
+              obscureText: true,
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _register,
+              child: Text('Sign Up'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Already have an account? Sign In'),
+            ),
+            SizedBox(height: 20),
+            Text('Or sign up with'),
+            SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: Image.asset('assets/google_logo.png'),
+                  iconSize: 30,
+                  onPressed: () {
+                    // Add Google sign-up logic here
+                  },
+                ),
+                IconButton(
+                  icon: Image.asset('assets/facebook_logo.png'),
+                  iconSize: 30,
+                  onPressed: () {
+                    // Add Facebook sign-up logic here
+                  },
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

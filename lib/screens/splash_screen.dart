@@ -10,51 +10,50 @@ class SplashScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // Widget untuk gambar (logo)
+            
             Image.asset(
-              'assets/login.jpg', // Ganti dengan path gambar logo baru Anda
-              height: 200, // Atur tinggi gambar sesuai kebutuhan
+              'assets/login.jpg', 
+              height: 200, 
             ),
-            SizedBox(height: 20), // Spasi antara gambar dan teks
-            // Widget untuk teks
+            SizedBox(height: 20),
+            
              Text(
               "Welcome",
-              textAlign: TextAlign.center, // Rata tengah teks
+              textAlign: TextAlign.center, 
               style: TextStyle(
-                fontSize: 20, // Ukuran font
-                fontWeight: FontWeight.bold, // Tebal font
-                color: Colors.black, // Warna teks
+                fontSize: 20, 
+                fontWeight: FontWeight.bold, 
+                color: Colors.black, 
               ),
             ),
             SizedBox(height: 15),
 
             Text(
               "Selamat Datang di Aplikasi LearnOut",
-              textAlign: TextAlign.center, // Rata tengah teks
+              textAlign: TextAlign.center, 
               style: TextStyle(
-                fontSize: 16, // Ukuran font
-                color: Colors.grey, // Warna teks
+                fontSize: 16, 
+                color: Colors.grey, 
               ),
             ),
-            SizedBox(height: 20), // Spasi antara teks dan teks "Welcome"
-            // Widget untuk teks "Welcome" 
-            // Widget untuk tombol "Sign In" dan "Sign Up"
+            SizedBox(height: 20), 
+           
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Mengatur jarak antar tombol
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly, 
               children: <Widget>[
                 ElevatedButton(
                   onPressed: () {
-                    // Navigasi ke halaman Sign In
+                    
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => SignInScreen()), // Pastikan SignInScreen sudah dibuat
+                      MaterialPageRoute(builder: (context) => SignInScreen()),
                     );
                   },
                   child: Text('Sign In'),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    // Navigasi ke halaman Sign Up
+                    
                      Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => SignUpScreen()), // Pastikan SignUpScreen sudah dibuat
