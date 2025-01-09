@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'sign_in_screen.dart';
 
-
 class SignUpScreen extends StatefulWidget {
   @override
   _SignUpScreenState createState() => _SignUpScreenState();
@@ -142,16 +141,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
               children: [
                 IconButton(
                   icon: Image.asset('assets/google_logo.png'),
-                  iconSize: 30,
+                  iconSize: 24,
                   onPressed: () {
-                    // Add Google sign-up logic here
+                    
                   },
                 ),
                 IconButton(
                   icon: Image.asset('assets/facebook_logo.png'),
-                  iconSize: 30,
+                  iconSize: 24, 
                   onPressed: () {
-                    // Add Facebook sign-up logic here
+                   
                   },
                 ),
               ],

@@ -25,3 +25,5 @@ NIM : 362358302151
 NAMA : FARUK ALFATAH
 KELAS : 2B TRPL
 
+Tampilan Awal
+hasil : ![alt text](image.png)

@@ -106,16 +106,16 @@ class _SignInScreenState extends State<SignInScreen> {
               children: [
                 IconButton(
                   icon: Image.asset('assets/google_logo.png'),
-                  iconSize: 30,
+                  iconSize: 24,
                   onPressed: () {
-                    // Add Google sign-in logic here
+                    
                   },
                 ),
                 IconButton(
                   icon: Image.asset('assets/facebook_logo.png'),
-                  iconSize: 30,
+                  iconSize: 24, 
                   onPressed: () {
-                    // Add Facebook sign-in logic here
+                    
                   },
                 ),
               ],
